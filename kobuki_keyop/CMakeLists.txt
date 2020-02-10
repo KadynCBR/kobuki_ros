@@ -50,4 +50,9 @@ install(DIRECTORY config
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(DIRECTORY
+  launch
+  DESTINATION shate/${PROJECT_NAME}/
+)
+
 ament_package()
