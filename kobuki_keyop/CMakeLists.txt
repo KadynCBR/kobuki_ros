@@ -52,7 +52,7 @@ install(DIRECTORY config
 
 install(DIRECTORY
   launch
-  DESTINATION shate/${PROJECT_NAME}/
+  DESTINATION share/${PROJECT_NAME}/
 )
 
 ament_package()
