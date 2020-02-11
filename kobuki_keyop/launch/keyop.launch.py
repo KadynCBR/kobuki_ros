@@ -1,17 +1,24 @@
 # https://github.com/yujinrobot/kobuki/tree/devel/kobuki_keyop/launch
-import launch
-import launch.actions
-import launch.substitutions
-import launch_ros.actions
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+
+linear_vel_step = 0.05
+linear_vel_max = 1.5
+angular_vel_step = 0.33
+angular_vel_max = 6.6
+wait_for_connection_ = True
 
 
 def generate_launch_description():
-    return launch.LaunchDescription([
-        launch.actions.DeclareLaunchArgument(
-            'node_prefix',
-            default_value=[launch.substitutions.EnvironmentVariable('USER'), '_'],
-            descriptions='prefix for node names'),
-        launch_ros.actions.Node(
-            package='kobuki_keyop', node_executable='keyop_node', output='screen',
-            node_name=[launch.substitutions.LaunchConfiguration('node_prefix'), 'keyop_node'])
+    return LaunchDescription([
+        Node(
+            package='kobuki_keyop',
+            node_executable='keyop_node',
+            node_name='kobuki_keyop',
+            remappings=[
+                ('keyop/motor_power', 'mobile_base/commands/motor_power'),
+                ('keyop/cmd_vel', 'mobile_base/commands/velocity')
+            ]
+        ),
     ])
